@@ -1,0 +1,35 @@
+
+.img-cover{
+    width: 90px;
+    height: auto;
+    border-radius: 0.5em;
+}
+
+.img-cover-show{
+    width: 120px;
+    height: auto;
+    border-radius: 0.3em;
+}
+
+.input-shadow {
+    box-shadow: 1px 2px 0px #d4d4d4;
+}
+
+.btn-star{
+    cursor:pointer;
+}
+
+.btn-star:hover{
+    color: #363c66;
+}
+
+.footer {
+    text-align: center;
+    background-color: #f8f9fa;
+    width: 100%;
+}
+
+
+.ui-datepicker {
+    width: 17.5em !important;
+}

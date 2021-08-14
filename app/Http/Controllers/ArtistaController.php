@@ -22,29 +22,39 @@ class ArtistaController extends Controller
 
     public function index()
     {
-        // $artista = $this->artista->paginate(5);
-        // return view('artista.index', compact('artistas'));
-        return view('artista.index');
+        $artistas = $this->artista->paginate(5);
+        return view('artista.index', compact('artistas'));
     }
 
     public function create()
     {
-        // $user = Auth::user();
-        // return view('artista.create', compact('user',''));
         return view('artista.create');
     }
 
     public function store(Request $request)
     {
         try {
-            $artista = new Artista;
             DB::beginTransaction();
-            //
 
+            $artista = new Artista($request->artista);
+            $artista['dt_nascimento'] = dateToMySQL($request->artista['dt_nascimento']);
+            $artista->save();
+            
             DB::commit();
             return redirect()->route('artista.index')->with('success', "Artista cadastrado com sucesso" );
         }  catch (ModelNotFoundException $exception) {
             return back()->withError($exception->getMessage())->withInput();
+        }
+    }
+
+    public function show($name){
+        $nome = UrlToName($name);
+        $artista = Artista::where('nome' , '=', $nome)->first();
+       
+        if($artista){
+            return view('artista.show', compact('artista'));
+        }else{
+            return  redirect()->route('artista.index')->with('warning', "Artista não encontrado" );
         }
     }
 
@@ -54,12 +64,14 @@ class ArtistaController extends Controller
         return view('artista.create', compact('artista'));
     }
 
-    public function update(Request $request)
+    public function update(Request $request, $id)
     {
         try {
-            $artista = new Artista;
             DB::beginTransaction();
-            //
+            $artista = Artista::find($id);
+            $artista->fill($request->artista);
+            $artista['dt_nascimento'] = dateToMySQL($request->artista['dt_nascimento']);
+            $artista->update();
 
             DB::commit();
             return redirect()->route('artista.index')->with('success', "Artista cadastrado com sucesso" );

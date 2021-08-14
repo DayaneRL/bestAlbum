@@ -40,7 +40,7 @@ Meu Perfil
               <ul class="nav nav-pills nav-fill p-1 bg-transparent" role="tablist">
                 
                 <li class="nav-item">
-                  <a class="nav-link mb-0 px-0 py-1 " data-bs-toggle="tab" href="javascript:;" role="tab" aria-selected="false">
+                  <a class="nav-link mb-0 px-0 py-1 " href="{{route('user.edit', $user->id)}}">
                     <i class="fas fa-pencil-alt"></i>
                     <span class="ms-1">Editar</span>
                   </a>

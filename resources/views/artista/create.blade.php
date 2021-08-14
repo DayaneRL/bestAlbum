@@ -35,26 +35,26 @@ Cadastrar artista
                     
                     <div class="form-group mt-1 mb-2">
                         <label for="nome">Nome</label>
-                        <input type="text" class="form-control input-shadow" maxlength="100" placeholder="Nome" value="" id="nome" name="nome">
+                        <input type="text" class="form-control input-shadow" maxlength="100" placeholder="Nome" value="{{isset($artista->nome)?$artista->nome : ''}}" id="nome" name="artista[nome]">
                     </div>
 
                     <div class="form-group mt-1 mb-2">
                         <div class="row">
                             <div class="col-12 col-md-6">
                                 <label for="nascimento">Data de Nascimento</label>
-                                <input type="text" id="calendario" class="form-control input-shadow" maxlength="100" placeholder="00/00/0000" value="" id="nascimento" name="nascimento">
+                                <input type="text" id="calendario" class="form-control input-shadow" maxlength="100" placeholder="00/00/0000" value="{{isset($artista->dt_nascimento)?dateToPTBR($artista->dt_nascimento) : ''}}" id="nascimento" name="artista[dt_nascimento]">
                             </div>
                             <div class="col-12 col-md-6">
                                 <label for="genero">Genero</label>
-                                <select class="form-control input-shadow" name="genero">
-                                    <option value="Alternativo">Alternativo</option>
-                                    <option value="Funk">Funk</option>
-                                    <option value="Indie">Indie</option>
-                                    <option value="MPB">Mpb</option>
-                                    <option value="Pagode">Pagode</option>
-                                    <option value="Pop">Pop</option>
-                                    <option value="Rock">Rock</option>
-                                    <option value="Sertanejo">Sertanejo</option>
+                                <select class="form-control input-shadow" name="artista[genero]">
+                                    <option value="Alternativo" {{isset($artista) && $artista->genero=="Alternativo"? 'selected' : ''}}>Alternativo</option>
+                                    <option value="Funk"  {{isset($artista) && $artista->genero=="Funk"? 'selected' : ''}}>Funk</option>
+                                    <option value="Indie" {{isset($artista) && $artista->genero=="Indie"? 'selected' : ''}}>Indie</option>
+                                    <option value="MPB" {{isset($artista) && $artista->genero=="MPB"? 'selected' : ''}}>Mpb</option>
+                                    <option value="Pagode" {{isset($artista) && $artista->genero=="Pagode"? 'selected' : ''}}>Pagode</option>
+                                    <option value="Pop" {{isset($artista) && $artista->genero=="Pop"? 'selected' : ''}}>Pop</option>
+                                    <option value="Rock" {{isset($artista) && $artista->genero=="Rock"? 'selected' : ''}}>Rock</option>
+                                    <option value="Sertanejo" {{isset($artista) && $artista->genero=="Sertanejo"? 'selected' : ''}}>Sertanejo</option>
                                 </select>
                             </div>
                         </div>
@@ -62,7 +62,7 @@ Cadastrar artista
 
                     <div class="form-group mt-1 mb-2">
                         <label for="url">URL site oficial do artista</label>
-                        <input type="text" class="form-control input-shadow" placeholder="url" value="" id="url" name="url">
+                        <input type="text" class="form-control input-shadow" placeholder="url" value="{{isset($artista->url)?$artista->url : ''}}" id="url" name="artista[url]">
                     </div>
 
                     <div class="text-center mb-2 mt-5">

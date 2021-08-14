@@ -18,23 +18,26 @@ Nome artista
     <div class="container">
 
         <div class="card">
-            <div class="card-header text-center">
-                <h5>Nome Artista</h5>
+            <div class="card-header">
+                <a class="btn btn-sm btn-white border" style="float:right" href="{{route('artista.edit', $artista->id)}}">
+                    Editar
+                </a>
+                
             </div>
             <div class="card-body">
                 <div class="text-center">
-                    <img class="img-cover-show mb-3" src="../assets/img/team-4.jpg" alt="artist-cover"/>
-                    
+                    <img class="img-cover-show mb-3 border" src="../assets/img/default-artist.png" alt="artist-cover"/>
+                    <h5>{{$artista->nome}}</h5>
                     <p>
                         <i class="fas fa-star"></i>
                         <i class="fas fa-star"></i>
                         <i class="fas fa-star"></i>
-                        <i class="far fa-star"></i>
+                        <i class="fas fa-star"></i>
                         <i class="far fa-star"></i>
                     </p>
-                    <p><b>Data de Nascimento: </b>xx/xx/xxxx</p>
-                    <p><b>Gênero: </b>MPB</p>
-                    <p><b>Site oficial: </b> siteartista.com.br</p>
+                    <p><b>Data de Nascimento: </b>{{dateToPTBR($artista->dt_nascimento)}}</p>
+                    <p><b>Gênero: </b>{{$artista->genero}}</p>
+                    <p><b>Site oficial: </b> <a target="_blank" href="http://{{$artista->url}}">{{$artista->url}}</a></p>
                 </div>
             </div>
         </div>

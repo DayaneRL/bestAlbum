@@ -25,13 +25,14 @@ Artistas
                     <h2>Artistas</h2>
                 </div>
             </div>
+            @include('template.flash-message')
             <div class="card-body">
                 <div class="row mb-2">
                     <div class="col-12 col-md-2">
                         <img class="img-cover" src="../assets/img/team-4.jpg" alt="artist-cover"/>
                     </div>
                     <div class="col-12 col-sm-10">
-                        <h4>Nome Artista</h4>
+                        <h4>Nome Artista Exemplo</h4>
                         <p>
                             <i class="fas fa-star"></i>
                             <i class="fas fa-star"></i>
@@ -41,6 +42,25 @@ Artistas
                         </p>
                     </div>
                 </div>
+                @if(isset($artistas))
+                @foreach ($artistas as $artista)
+                    <div class="row mb-2">
+                        <div class="col-12 col-md-2">
+                            <img class="img-cover border" src="../assets/img/default-artist.png" alt="artist-cover"/>
+                        </div>
+                        <div class="col-12 col-sm-10">
+                        <h4><a href="{{url('artista/'.nameToUrl($artista->nome))}}">{{$artista->nome}}</a></h4>
+                            <p>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="far fa-star"></i>
+                            </p>
+                        </div>
+                    </div>
+                @endforeach
+                @endif
             </div>
         </div>
 

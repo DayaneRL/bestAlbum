@@ -25,9 +25,11 @@ active
                     <h2>Álbuns</h2>
                 </div>
             </div>
+            @include('template.flash-message')
             <div class="card-body">
                 <div class="row mb-2">
                     <div class="col-12 col-md-2">
+                       
                         <img class="img-cover" src="../assets/img/team-3.jpg" alt="artist-cover"/>
                     </div>
                     <div class="col-12 col-sm-10">
@@ -41,6 +43,29 @@ active
                         </p>
                     </div>
                 </div>
+                @if(isset($albuns))
+                @foreach ($albuns as $album)
+                    <div class="row mb-2">
+                        <div class="col-12 col-md-2">
+                            @if(isset($album->imagem))
+                            <img class="img-cover border" src="{{asset('../storage/album/'.$album->imagem)}}" alt="album-cover"/>
+                            @else
+                            <img class="img-cover border" src="../assets/img/default-album.png" alt="album-cover"/>
+                            @endif
+                        </div>
+                        <div class="col-12 col-sm-10">
+                        <h4><a href="{{url('album/'.nameToUrl($album->nome))}}">{{$album->nome}}</a></h4>
+                            <p>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="far fa-star"></i>
+                            </p>
+                        </div>
+                    </div>
+                @endforeach
+                @endif
             </div>
         </div>
 

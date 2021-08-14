@@ -9,10 +9,12 @@ Route::resources([
     '/user'     => 'UserController'
 ]);
 
-Route::get('/', function () {
-    return view('home.index');
-})->name('home');
+Route::get('/', 'HomeController@home')->name('home');
 Route::get('/template', function () { return view('template.dashboard');});
+
+Route::get('artista/{nome}', 'ArtistaController@show')->name('findArtist');
+Route::get('album/{nome}', 'AlbumController@show');
+Route::post('nota-album/{user}-{nota}-{album}', 'AlbumController@avaliaAlbum');
 
 Auth::routes();
 

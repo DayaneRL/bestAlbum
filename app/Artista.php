@@ -8,10 +8,11 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Artista extends Model
 {
     Use SoftDeletes;
-    protected $table = 'artista';
+    protected $table = 'artistas';
     protected $fillable = [
         'nome','dt_nascimento','genero','url'
     ];
+    public $timestamps   = true;
 
     // public function Imovel()
     // {

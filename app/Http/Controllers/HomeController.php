@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Album;
+use App\Artista;
 
 class HomeController extends Controller
 {
@@ -24,5 +26,11 @@ class HomeController extends Controller
     public function index()
     {
         return view('home');
+    }
+
+    public function home(){
+        $albuns = Album::limit(3)->get();
+        $artistas = Artista::limit(3)->get();
+        return view('home.index', compact('albuns','artistas'));
     }
 }

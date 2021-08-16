@@ -23,6 +23,13 @@
     color: #363c66;
 }
 
+.page-item.active .page-link {
+    z-index: 3;
+    color: #fff;
+    background-color: #363c66 !important;
+    border-color: #363c66 !important;
+}
+
 .footer {
     text-align: center;
     background-color: #f8f9fa;

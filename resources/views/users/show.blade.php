@@ -98,7 +98,7 @@ Meu Perfil
                             <i class="far fa-star-half text-danger text-gradient"></i>
                           </span>
                           <div class="timeline-content">
-                          <h6 class="text-dark text-sm font-weight-bold mb-0">Você avaliou o album {{$nota->Artista->nome}} com nota {{$nota->nota}}</h6>
+                          <h6 class="text-dark text-sm font-weight-bold mb-0">Você avaliou o(a) artista {{$nota->Artista->nome}} com nota {{$nota->nota}}</h6>
                           <p class="text-secondary font-weight-bold text-xs mt-1 mb-0">{{datetimeToPTBR($nota->created_at)}}</p>
                           </div>
                         </div>

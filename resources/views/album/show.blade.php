@@ -22,9 +22,11 @@ active
         @endauth
         <div class="card">
             <div class="card-header">
+                @auth
                 <a class="btn btn-sm btn-white border" style="float:right" href="{{route('album.edit', $album->id)}}">
                     Editar
                 </a>
+                @endauth
             </div>
             <div class="card-body">
                 <div class="text-center">

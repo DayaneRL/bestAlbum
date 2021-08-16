@@ -13,7 +13,11 @@ Route::get('/', 'HomeController@home')->name('home');
 Route::get('/template', function () { return view('template.dashboard');});
 
 Route::get('artista/{nome}', 'ArtistaController@show')->name('findArtist');
+Route::post('artista/genero/{genero}', 'ArtistaController@indexGenero')->name('findGenero');
+
 Route::get('album/{nome}', 'AlbumController@show');
+Route::post('album/artista/{nome}', 'AlbumController@indexArtista')->name('findArtista');
+
 Route::post('nota-album/{user}-{nota}-{album}', 'AlbumController@avaliaAlbum');
 Route::post('nota-artista/{user}-{nota}-{artista}', 'ArtistaController@avaliaArtista');
 

@@ -21,32 +21,29 @@ active
         @endauth
         <div class="card">
             <div class="card-header">
-                <a class="btn btn-sm btn-white border" style="float:right" href="{{route('album.create')}}">
-                    Cadastrar Álbum
-                  </a>
-                <div class=" text-center">
-                    <h2>Álbuns</h2>
+                <div class="row">
+                    <div class="col-12 col-md-6 offset-md-3">
+                        <form method="POST" action="{{route('findArtista','')}}">
+                            @csrf
+                            <select class="form-control input-shadow" name="artista" id="artista">
+                                <option value="" >Selecione Artista...</option>
+                                @foreach($artistas as $artista)
+                                <option value="{{nameToUrl($artista->nome)}}" >{{$artista->nome}}</option>
+                                @endforeach
+                            </select>
+                        </form>
+                    </div>
+                    <div class="col-12 col-md-3">
+                        <a class="btn btn-sm btn-white border" style="float:right" href="{{route('album.create')}}">
+                        Cadastrar Álbum</a>
+                    </div>
                 </div>
+                
             </div>
             @include('template.flash-message')
             <div class="card-body">
                 @if(!isset($albuns[0]))
-                <div class="row mb-2">
-                    <div class="col-12 col-md-2">
-                       
-                        <img class="img-cover" src="../assets/img/team-3.jpg" alt="artist-cover"/>
-                    </div>
-                    <div class="col-12 col-sm-10">
-                        <h4>Nome Álbum</h4>
-                        <p>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="far fa-star"></i>
-                        </p>
-                    </div>
-                </div>
+               
                 @else
                 @foreach ($albuns as $album)
                     <div class="row mb-2">
@@ -59,7 +56,7 @@ active
                             @if(isset($album->imagem))
                             <img class="img-cover border" src="{{asset('../storage/album/'.$album->imagem)}}" alt="album-cover"/>
                             @else
-                            <img class="img-cover border" src="../assets/img/default-album.png" alt="album-cover"/>
+                            <img class="img-cover border" src="{{asset('../assets/img/default-album.png')}}" alt="album-cover"/>
                             @endif
                         </div>
                         <div class="col-12 col-sm-10 ">
@@ -76,8 +73,34 @@ active
                     </div>
                 @endforeach
                 @endif
+
+                @if($albuns->total() > 3)
+                <div class="row text-secondary">
+                    <div class="col-sm-12 col-md-5">
+                    </div>
+                    <div class="col-sm-12 col-md-7">
+                        <div class="float-right show-shadow" style="height: 37px;">{{$albuns->links()}}</div>
+                    </div>
+                </div>
+                @endif
             </div>
         </div>
 
     </div>
+@endsection
+
+@section('script')
+<script>
+    $(document).on('change','#artista',function(){
+        let artista = $('#artista').val();
+        let form =$('#artista').parents('form');
+        let action = $(form).attr('action')
+        console.log(artista)
+        console.log(action)
+        if(artista){
+            $(form).attr('action', action+'/'+artista);
+            $('#artista').parents('form').submit();
+        }
+    })
+</script>
 @endsection

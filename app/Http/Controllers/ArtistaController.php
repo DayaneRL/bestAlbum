@@ -24,7 +24,14 @@ class ArtistaController extends Controller
 
     public function index()
     {
-        $artistas = $this->artista->paginate(5);
+        $artistas = $this->artista->paginate(3);
+        $user = Auth::user()?User::find(Auth::user()->id):'';
+        return view('artista.index', compact('artistas','user'));
+    }
+
+    public function indexGenero($genero)
+    {
+        $artistas = $this->artista->where('genero',$genero)->paginate(3);
         $user = Auth::user()?User::find(Auth::user()->id):'';
         return view('artista.index', compact('artistas','user'));
     }

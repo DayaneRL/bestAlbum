@@ -25,9 +25,24 @@ class AlbumController extends Controller
 
     public function index()
     {
-        $albuns = $this->album->paginate(5);
+        $albuns = $this->album->paginate(3);
+        $artistas = Artista::all();
         $user = Auth::user()?User::find(Auth::user()->id):'';
-        return view('album.index', compact('albuns','user'));
+        return view('album.index', compact('albuns','user','artistas'));
+    }
+
+    public function indexArtista($artista)
+    {
+        // $artistas = $this->artista->where('genero',$genero)->paginate(3);
+        $nome = UrlToName($artista);
+        $artista = Artista::where('nome' , '=', $nome)->first();
+        $albuns = $this->album->where('artista_id',$artista->id)->paginate(3);
+        $artistas = Artista::all();
+        $user = Auth::user()?User::find(Auth::user()->id):'';
+        if($albuns->total() == 0){
+            return view('album.index', compact('albuns','user','artistas'))->with('warning','Não existe nenhum album desse artista');
+        }
+        return view('album.index', compact('albuns','user','artistas'));
     }
 
     public function create()
@@ -41,7 +56,7 @@ class AlbumController extends Controller
         try {
             DB::beginTransaction();
             $album = new album($request->album);
-            return $request;
+
              //validacao imagem
              if ($request->hasFile('imagem') && $request->file('imagem')->isValid()) {
                 $name = date('HisYmd');

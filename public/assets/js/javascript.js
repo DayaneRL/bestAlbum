@@ -7,7 +7,6 @@ $(document).ready(function(){
         })
     }
     let nota_artista = $('.nota_artista');
-    console.log(nota_artista)
     if(nota_artista){
         $(nota_artista).each(function(){
             let button = $(this).parents(".row").find("#star-"+$(this).val());
@@ -44,7 +43,7 @@ $('.btn-star').on("click",async function(){
     let artista = $(this).parents(".row").find(".artista_id").val();
     let token =  document.getElementsByName("_token")[0].value;
 
-    console.log(id, token, nota, album, artista);
+    // console.log(id, token, nota, album, artista);
     if( id && token && nota && (album || artista)){
         await fixaNota(clicked, this_id);
         const mudanca = realizarMudanca();

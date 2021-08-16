@@ -33,3 +33,16 @@
 .ui-datepicker {
     width: 17.5em !important;
 }
+
+span.error{
+    color: #ff0000d1;
+    font-size: 0.8em;
+}
+
+input.error, select.error{
+    border: 1px solid #ff0000d1;
+}
+
+span.erro{
+    color: #ff0000d1;
+}

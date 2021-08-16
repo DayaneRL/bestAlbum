@@ -22,20 +22,20 @@ active
                 <h4>@if(isset($album)) Editar @else Cadastrar @endif Álbum</h4>
             </div>
             <div class="card-body">
-                <form action="{{isset($album) ? route('album.update',$album->id) : route('album.store')}}" id="formalbum" method="POST" enctype="multipart/form-data">
+                <form action="{{isset($album) ? route('album.update',$album->id) : route('album.store')}}" id="formAlbum" method="POST" enctype="multipart/form-data">
                     @csrf
                     @if(isset($album))
                      @method('PUT') 
                     @endif
                     
                     <div class="form-group mt-1 mb-2">
-                        <label for="nome">Nome</label>
-                        <input type="text" class="form-control input-shadow" required maxlength="100" placeholder="Nome" value="{{isset($album->nome)?$album->nome:''}}" id="nome" name="album[nome]">
+                        <label for="nome">Nome<span class="erro">*</span></label>
+                        <input type="text" class="form-control input-shadow"  maxlength="100" placeholder="Nome" value="{{isset($album->nome)?$album->nome:''}}" id="nome" name="album[nome]">
                     </div>
 
                     <div class="form-group mt-1 mb-2">
-                        <label for="album">Artista</label>
-                        <select class="form-control input-shadow" id="album" name="album[artista_id]" required>
+                        <label for="album">Artista<span class="erro">*</span></label>
+                        <select class="form-control input-shadow" id="album" name="album[artista_id]" >
                             <option value="">Selecione...</option>
                             @if(isset($artistas))
                             @foreach($artistas as $artista)
@@ -67,4 +67,11 @@ active
         </div>
 
     </div>
+@endsection
+@section('script')
+<script src="http://jqueryvalidation.org/files/dist/jquery.validate.js"></script>
+<script src="http://jqueryvalidation.org/files/dist
+/additional-methods.min.js"></script>
+
+<script src="{{ asset('../assets/js/validation.js')}}"></script>
 @endsection

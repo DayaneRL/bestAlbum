@@ -41,7 +41,7 @@ class AlbumController extends Controller
         try {
             DB::beginTransaction();
             $album = new album($request->album);
-
+            return $request;
              //validacao imagem
              if ($request->hasFile('imagem') && $request->file('imagem')->isValid()) {
                 $name = date('HisYmd');

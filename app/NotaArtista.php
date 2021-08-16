@@ -12,4 +12,12 @@ class NotaArtista extends Model
     protected $fillable = [
         'nota','artista_id','user_id'
     ];
+
+    public function Users(){
+        return $this->hasOne('App\User', 'id', 'user_id');
+    }
+
+    public function Artista(){
+        return $this->hasOne('App\Artista', 'id', 'artista_id');
+    }
 }

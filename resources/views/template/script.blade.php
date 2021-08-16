@@ -21,6 +21,12 @@
 
  <script src="../../assets/js/jquery-3.5.1.min.js"></script>
 
+  <!-- Jquery confirm v3.3.4 -->
+  <link rel="stylesheet" href="{{ asset('../../assets/js/plugins/jquery-confirm-v3.3.4/css/jquery-confirm.css')}}">
+  <script src="{{ asset('../../assets/js/plugins/jquery-confirm-v3.3.4/js/jquery-confirm.js')}}"></script>
+ 
+ <script src="../../assets/js/javascript.js"></script>
+
  <script>
   $(document).ready(function(){
       setTimeout(function(){ $('.alert').fadeTo(2000, 500).slideUp(500) }, 1000);

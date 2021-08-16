@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use App\User;
+use App\NotaAlbum;
+use App\NotaArtista;
 
 class UserController extends Controller
 {
@@ -21,7 +23,10 @@ class UserController extends Controller
     public function show($id)
     {
         $user = User::find($id);
-        return view('users.show', compact('user'));
+        $notasArtista = NotaArtista::where('user_id', $user->id)->get();
+        $notasAlbum = NotaAlbum::where('user_id', $user->id)->get();
+        
+        return view('users.show', compact('user','notasArtista','notasAlbum'));
     }
 
     public function edit($id)

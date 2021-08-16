@@ -7,11 +7,11 @@ active
 @section('breadcrumb')
 <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="{{route('home')}}">Início</a></li>
 <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="{{route('album.index')}}">Álbuns</a></li>
-<li class="breadcrumb-item text-sm text-dark active" aria-current="page">Cadastrar Álbum</li>
+<li class="breadcrumb-item text-sm text-dark active" aria-current="page">@if(isset($album)) Editar @else Cadastrar @endif Álbum</li>
 @endsection 
 
 @section('title')
-Cadastrar Álbum
+@if(isset($album)) Editar @else Cadastrar @endif Álbum
 @endsection
 
 @section('content')
@@ -19,7 +19,7 @@ Cadastrar Álbum
 
         <div class="card">
             <div class="card-header text-center">
-                <h4>Cadastrar Álbum</h4>
+                <h4>@if(isset($album)) Editar @else Cadastrar @endif Álbum</h4>
             </div>
             <div class="card-body">
                 <form action="{{isset($album) ? route('album.update',$album->id) : route('album.store')}}" id="formalbum" method="POST" enctype="multipart/form-data">
@@ -53,7 +53,7 @@ Cadastrar Álbum
                             </div>
                             <div class="col-12 col-md-6">
                                 <label for="url">URL </label>
-                                <input type="text" class="form-control input-shadow" maxlength="100" placeholder="url" value="{{isset($album->nome)?$album->nome:''}}" id="url" name="album[url]">
+                                <input type="text" class="form-control input-shadow" maxlength="100" placeholder="url" value="{{isset($album->url)?$album->url:''}}" id="url" name="album[url]">
                             </div>
                         </div>
                     </div>

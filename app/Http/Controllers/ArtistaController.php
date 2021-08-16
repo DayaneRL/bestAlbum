@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use App\Artista;
+use App\NotaArtista;
+use App\User;
 
 class ArtistaController extends Controller
 {
@@ -23,7 +25,8 @@ class ArtistaController extends Controller
     public function index()
     {
         $artistas = $this->artista->paginate(5);
-        return view('artista.index', compact('artistas'));
+        $user = Auth::user()?User::find(Auth::user()->id):'';
+        return view('artista.index', compact('artistas','user'));
     }
 
     public function create()
@@ -50,9 +53,11 @@ class ArtistaController extends Controller
     public function show($name){
         $nome = UrlToName($name);
         $artista = Artista::where('nome' , '=', $nome)->first();
-       
+        $user = Auth::user()?User::find(Auth::user()->id):'';
+        $media = calculaMediaArtista($artista->id);
+        
         if($artista){
-            return view('artista.show', compact('artista'));
+            return view('artista.show', compact('artista','user','media'));
         }else{
             return  redirect()->route('artista.index')->with('warning', "Artista não encontrado" );
         }
@@ -91,6 +96,43 @@ class ArtistaController extends Controller
             return redirect()->route('artista.index')->with('success', "Artista deletado com sucesso" );
         }  catch (ModelNotFoundException $exception) {
             return back()->withError($exception->getMessage())->withInput();
+        }
+    }
+
+    public function avaliaArtista($user, $nota, $artista){
+        try{
+            DB::beginTransaction();
+            $nota_artista = NotaArtista::where('artista_id', $artista)->first();
+            if(isset($nota_artista->id)){
+                $nota_artista->nota = $nota;
+                $nota_artista->user_id = $user;
+                $nota_artista->artista_id = $artista;
+                $nota_artista->update();
+            }else{
+                $nota_artista = new NotaArtista();
+                $nota_artista->nota = $nota;
+                $nota_artista->user_id = $user;
+                $nota_artista->artista_id = $artista;
+                $nota_artista->save();
+            }
+            DB::commit();
+            return ['status'=>1,'mensagem'=>"Nota registrada: $nota", "nota_id"=>$nota_artista->id];
+        }catch (ModelNotFoundException $exception) {
+             DB::rollBack();
+            return ['status'=>0,'mensagem'=>"Não foi possível realizar essa ação!"];
+        }
+    }
+
+    public function destroyNotaArtista($nota_artista_id){
+        try{
+            DB::beginTransaction();
+            $nota_artista = NotaArtista::find($nota_artista_id);
+            $nota_artista->delete();
+            DB::commit();
+            return ['status'=>1,'mensagem'=>"Nota artista deletada: $nota_artista_id"];
+        }catch (ModelNotFoundException $exception) {
+             DB::rollBack();
+            return ['status'=>0,'mensagem'=>"Não foi possível realizar essa ação!"];
         }
     }
 }

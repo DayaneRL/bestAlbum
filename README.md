@@ -11,7 +11,8 @@
 
 Projeto simples feito para a matéria Projeto Integrado I do tecnólogo em Analise e Desenvolvimento de sistemas.
 
-### `Funções dentro do sitema:`
+### `Funções dentro do sistema:`
 
 Cadastro de usuário, Login, Listagem de melhores Albuns e Artistas, Cadastro e Edição de Albuns, Cadastro e Edição de Artistas, Edição de usuário.
+<br/>
 E o principal é Cadastrar, Editar e Apagar notas em Artistas e Álbuns.
